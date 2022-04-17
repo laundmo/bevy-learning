@@ -1,4 +1,4 @@
-use crate::misc::MovableComponent;
+use crate::misc::components::MovableComponent;
 use bevy::prelude::*;
 
 pub fn move_system(

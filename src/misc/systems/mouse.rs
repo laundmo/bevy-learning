@@ -1,4 +1,4 @@
-use crate::misc::{components::MainCamera, MouseCoords};
+use crate::misc::{components::MainCamera, resources::MouseCoords};
 use bevy::math::Vec2Swizzles;
 use bevy::prelude::*;
 

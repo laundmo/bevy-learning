@@ -1,4 +1,4 @@
-use crate::misc::{DamageDealtEvent, DeathEvent, Health};
+use crate::misc::components::{DamageDealtEvent, DeathEvent, Health};
 use bevy::prelude::*;
 
 pub fn damage_system(

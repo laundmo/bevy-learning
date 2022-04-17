@@ -1,6 +1,6 @@
 use bevy::prelude::*;
 
-use crate::misc::{DamageDealtEvent, DamageOverTime, Health, MovableComponent};
+use crate::misc::components::{DamageDealtEvent, DamageOverTime, Health, MovableComponent};
 
 pub fn spawn(
     mut commands: Commands,

@@ -1,6 +1,6 @@
 use bevy::prelude::*;
 
-use crate::{misc::MovableComponent, player::PlayerComponent};
+use crate::{misc::components::MovableComponent, player::PlayerComponent};
 
 pub fn player_movement_system(
     keyboard_input: Res<Input<KeyCode>>,

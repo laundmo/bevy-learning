@@ -1,6 +1,6 @@
 use bevy::prelude::*;
 
-use crate::misc::{Health, MovableComponent, NameComponent};
+use crate::misc::components::{Health, MovableComponent};
 
 use super::PlayerComponent;
 
@@ -27,6 +27,5 @@ pub fn spawn_player(mut commands: Commands) {
                 ..default()
             },
             ..default()
-        })
-        .insert(NameComponent("player".to_string()));
+        });
 }

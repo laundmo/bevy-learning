@@ -1,6 +1,6 @@
 use crate::{
     bullet::BulletComponent,
-    misc::{Health, HitboxComponent, MovableComponent, NameComponent},
+    misc::components::{Health, HitboxComponent, MovableComponent},
 };
 use bevy::prelude::*;
 
@@ -31,6 +31,5 @@ pub fn spawn_bullet(commands: &mut Commands, spawn_: Vec2, damage: f32, heading_
                 ..Default::default()
             },
             ..Default::default()
-        })
-        .insert(NameComponent("enemy".to_string()));
+        });
 }

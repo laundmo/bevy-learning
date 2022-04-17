@@ -1,6 +1,6 @@
 use crate::{
     enemy::EnemyComponent,
-    misc::{Health, HitboxComponent, MovableComponent, NameComponent},
+    misc::components::{Health, HitboxComponent, MovableComponent},
 };
 use bevy::prelude::*;
 
@@ -30,6 +30,5 @@ pub fn spawn_enemy(commands: &mut Commands, spawn: Vec3) {
                 ..Default::default()
             },
             ..Default::default()
-        })
-        .insert(NameComponent("enemy".to_string()));
+        });
 }

@@ -1,4 +1,4 @@
-use crate::misc::{DamageDealtEvent, DamageOverTime};
+use crate::misc::components::{DamageDealtEvent, DamageOverTime};
 use bevy::prelude::*;
 
 pub fn dot_system(

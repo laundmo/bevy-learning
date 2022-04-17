@@ -3,7 +3,10 @@ use bevy::sprite::collide_aabb::collide;
 
 use crate::bullet::BulletComponent;
 use crate::enemy::EnemyComponent;
-use crate::misc::{DamageDealtEvent, Health, HitboxComponent, ScreenLoc};
+use crate::misc::{
+    components::{DamageDealtEvent, Health, HitboxComponent},
+    resources::ScreenLoc,
+};
 use bevy::math::Vec3Swizzles;
 
 pub fn collide_bullet(

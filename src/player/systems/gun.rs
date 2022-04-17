@@ -1,4 +1,4 @@
-use crate::{bullet::spawn_bullet, misc::MouseCoords, player::PlayerComponent};
+use crate::{bullet::spawn_bullet, misc::resources::MouseCoords, player::PlayerComponent};
 use bevy::math::Vec3Swizzles;
 use bevy::prelude::*;
 

@@ -1,5 +1,6 @@
 use crate::{
-    enemy::spawn_enemy, enemy::EnemyComponent, misc::MovableComponent, player::PlayerComponent,
+    enemy::spawn_enemy, enemy::EnemyComponent, misc::components::MovableComponent,
+    player::PlayerComponent,
 };
 use bevy::prelude::*;
 use rand::seq::SliceRandom;
