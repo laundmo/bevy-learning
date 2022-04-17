@@ -1,7 +1,10 @@
-use crate::{enemy::spawn_enemy, player::PlayerComponent};
+use crate::{
+    enemy::spawn_enemy, enemy::EnemyComponent, misc::MovableComponent, player::PlayerComponent,
+};
 use bevy::prelude::*;
 use rand::seq::SliceRandom;
 use rand::Rng;
+
 const SPAWN_RANGE: f32 = 500.0;
 
 const VS: &[(f32, f32)] = &[
@@ -30,5 +33,17 @@ pub fn spawn_enemies_system(
             0.0,
         );
         spawn_enemy(&mut commands, spawn);
+    }
+}
+
+pub fn enemy_targeting_system(
+    mut player_query: Query<&mut Transform, (With<PlayerComponent>, Without<EnemyComponent>)>,
+    mut query: Query<(&mut MovableComponent, &mut Transform), With<EnemyComponent>>,
+) {
+    let p_ray = player_query.single_mut();
+
+    for (mut mov, e_ray) in query.iter_mut() {
+        let towards = (p_ray.translation - e_ray.translation).normalize();
+        mov.heading = towards;
     }
 }

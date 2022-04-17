@@ -29,7 +29,7 @@ pub fn spawn(
                     },
                     text: Text {
                         sections: vec![TextSection {
-                            value: format!("{}", evt.damage),
+                            value: "12".to_string(), //format!("d {}", evt.damage),
                             style: TextStyle {
                                 font: font.clone(),
                                 font_size: 20.0,

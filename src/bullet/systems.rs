@@ -36,6 +36,7 @@ pub fn collide_bullet(
     }
 }
 
+// TODO: make custom component for things that can die from wall contact
 pub fn collide_wall(
     mut ev_death: EventWriter<DamageDealtEvent>,
     screen: Res<ScreenLoc>,

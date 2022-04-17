@@ -21,6 +21,7 @@ pub fn health_death_system(
         if health.value <= 0.001 {
             commands.entity(entity).remove::<Health>();
             ev_death.send(DeathEvent { entity });
+            info!("damage {:?}", entity);
         }
     }
 }
@@ -28,5 +29,6 @@ pub fn health_death_system(
 pub fn die_system(mut reader: EventReader<DamageDealtEvent>, mut commands: Commands) {
     for evt in reader.iter() {
         commands.entity(evt.entity).despawn_recursive();
+        info!("death {:?}", evt.entity);
     }
 }
