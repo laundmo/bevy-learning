@@ -17,7 +17,7 @@ pub fn spawn_bullet(commands: &mut Commands, spawn_: Vec2, damage: f32, heading_
             ..Default::default()
         })
         .insert(MovableComponent {
-            speed: 3.0,
+            speed: 10.0,
             heading,
         })
         .insert_bundle(SpriteBundle {

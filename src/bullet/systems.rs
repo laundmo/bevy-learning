@@ -2,7 +2,7 @@ use bevy::prelude::*;
 use bevy::sprite::collide_aabb::collide;
 
 use crate::bullet::BulletComponent;
-use crate::enemy::EnemyComponent;
+use crate::enemy::components::EnemyComponent;
 use crate::misc::{
     components::{DamageDealtEvent, Health, HitboxComponent},
     resources::ScreenLoc,
@@ -32,6 +32,7 @@ pub fn collide_bullet(
             if collide(etrans, esize, btrans, bsize).is_some() {
                 ev_hit.send(DamageDealtEvent {
                     entity,
+                    silent: false,
                     damage: bullet.damage,
                 });
             }
@@ -54,6 +55,7 @@ pub fn collide_wall(
         {
             ev_death.send(DamageDealtEvent {
                 entity,
+                silent: true,
                 damage: health.value,
             });
         }

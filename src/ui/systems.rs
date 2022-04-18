@@ -3,7 +3,7 @@ use bevy::{
     prelude::*,
 };
 
-use crate::{bullet::BulletComponent, enemy::EnemyComponent, ui::FrametimeText};
+use crate::{bullet::BulletComponent, enemy::components::EnemyComponent, ui::FrametimeText};
 
 pub fn setup_frametime_ui(mut commands: Commands, font: Handle<Font>) {
     println!("Setting up UI");

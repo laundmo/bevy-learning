@@ -14,6 +14,9 @@ fn main() {
             present_mode: PresentMode::Immediate,
             ..default()
         })
+        .insert_resource(enemy::resources::EnemySpawnTimer {
+            delay: Timer::from_seconds(0.1, false),
+        })
         .add_plugins(DefaultPlugins)
         .add_plugin(HelloPlugin)
         .add_plugin(FrameTimeDiagnosticsPlugin)
@@ -46,8 +49,8 @@ impl Plugin for HelloPlugin {
             .add_system(misc::systems::die_system.after(misc::systems::health_death_system))
             .add_startup_system(ui::spawn_ui)
             .add_system(ui::update_frametime_system)
-            .add_system(enemy::spawn_enemies_system)
-            .add_system(enemy::enemy_targeting_system)
+            .add_system(enemy::systems::spawn_enemies_system)
+            .add_system(enemy::systems::enemy_targeting_system)
             .add_system(player::player_movement_system)
             .add_system(player::player_fire_gun)
             .add_system(bullet::collide_bullet)

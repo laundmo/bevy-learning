@@ -1,10 +1,13 @@
+use crate::misc::components::DamageDealtEvent;
 use crate::{
-    enemy::spawn_enemy, enemy::EnemyComponent, misc::components::MovableComponent,
+    enemy::components::EnemyComponent, enemy::spawn_enemy, misc::components::MovableComponent,
     player::PlayerComponent,
 };
 use bevy::prelude::*;
 use rand::seq::SliceRandom;
 use rand::Rng;
+
+use super::resources::EnemySpawnTimer;
 
 const SPAWN_RANGE: f32 = 500.0;
 
@@ -21,11 +24,13 @@ const VS: &[(f32, f32)] = &[
 
 pub fn spawn_enemies_system(
     mut commands: Commands,
+    time: Res<Time>,
+    mut enemy_timer: ResMut<EnemySpawnTimer>,
     mut query: Query<&mut Transform, With<PlayerComponent>>,
 ) {
-    let p_ray = query.single_mut();
-    let mut rng = rand::thread_rng();
-    for _ in 0..1 {
+    if enemy_timer.delay.tick(time.delta()).finished() {
+        let p_ray = query.single_mut();
+        let mut rng = rand::thread_rng();
         let side = VS.choose(&mut rng).unwrap();
 
         let spawn = Vec3::new(
@@ -34,6 +39,7 @@ pub fn spawn_enemies_system(
             0.0,
         );
         spawn_enemy(&mut commands, spawn);
+        enemy_timer.delay.reset();
     }
 }
 
@@ -48,3 +54,14 @@ pub fn enemy_targeting_system(
         mov.heading = towards;
     }
 }
+
+// pub fn enemy_damage_indicator(
+//     mut reader: EventReader<DamageDealtEvent>,
+//     mut query: Query<&mut Sprite, With<EnemyComponent>>,
+// ) {
+//     for evt in reader.iter() {
+//         if let Ok(sprite) = query.get(evt.entity) {
+//             sprite.color
+//         }
+//     }
+// }

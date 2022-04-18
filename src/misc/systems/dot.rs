@@ -10,6 +10,7 @@ pub fn dot_system(
         if dot.delay.tick(time.delta()).finished() {
             ev_hit.send(DamageDealtEvent {
                 entity,
+                silent: dot.silent,
                 damage: dot.damage,
             });
             dot.delay.reset();

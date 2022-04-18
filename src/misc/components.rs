@@ -1,21 +1,28 @@
 use bevy::prelude::*;
 
-#[derive(Component)]
+#[derive(Component, Debug)]
 pub struct Health {
+    pub max_health: f32,
     pub value: f32,
 }
 
 impl Default for Health {
     fn default() -> Self {
-        return Health { value: f32::MAX };
+        return Health {
+            max_health: 100.0,
+            value: 100.0,
+        };
     }
 }
 
+#[derive(Debug)]
 pub struct DamageDealtEvent {
     pub entity: Entity,
+    pub silent: bool,
     pub damage: f32,
 }
 
+#[derive(Debug)]
 pub struct DeathEvent {
     pub entity: Entity,
 }
@@ -26,6 +33,7 @@ pub struct MainCamera;
 #[derive(Component)]
 pub struct DamageOverTime {
     pub damage: f32,
+    pub silent: bool,
     pub delay: Timer,
 }
 
@@ -33,7 +41,8 @@ impl Default for DamageOverTime {
     fn default() -> Self {
         return DamageOverTime {
             damage: 1.0,
-            delay: Timer::from_seconds(0.05, false),
+            silent: true,
+            delay: Timer::from_seconds(0.1, false),
         };
     }
 }

@@ -10,7 +10,7 @@ impl Default for PlayerComponent {
     fn default() -> Self {
         return PlayerComponent {
             base_damage: 10.0,
-            fire_timer: Timer::from_seconds(0.2, false),
+            fire_timer: Timer::from_seconds(0.1, false),
         };
     }
 }

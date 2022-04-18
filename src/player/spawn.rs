@@ -8,7 +8,7 @@ pub fn spawn_player(mut commands: Commands) {
     commands
         .spawn()
         .insert(PlayerComponent {
-            base_damage: 100.0,
+            base_damage: 10.0,
             ..default()
         })
         .insert(Health {

@@ -1,9 +1,6 @@
-mod components;
-mod resources;
+pub mod components;
+pub mod resources;
 mod spawn;
-mod systems;
+pub mod systems;
 
-pub use self::{
-    components::EnemyComponent, resources::EnemySpawnTimer, spawn::spawn_enemy,
-    systems::enemy_targeting_system, systems::spawn_enemies_system,
-};
+pub use self::spawn::spawn_enemy;
