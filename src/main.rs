@@ -4,6 +4,7 @@ use misc::components::MainCamera;
 mod bullet;
 mod damagenums;
 mod enemy;
+mod gun;
 mod misc;
 mod player;
 mod ui;
@@ -51,8 +52,9 @@ impl Plugin for HelloPlugin {
             .add_system(ui::update_frametime_system)
             .add_system(enemy::systems::spawn_enemies_system)
             .add_system(enemy::systems::enemy_targeting_system)
+            .add_system(enemy::systems::enemy_damage_indicator)
             .add_system(player::player_movement_system)
-            .add_system(player::player_fire_gun)
+            .add_system(gun::systems::fire)
             .add_system(bullet::collide_bullet)
             .add_system(bullet::collide_wall)
             .add_system(

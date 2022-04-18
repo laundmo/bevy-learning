@@ -1,4 +1,4 @@
-use crate::misc::components::DamageDealtEvent;
+use crate::misc::components::{DamageDealtEvent, Health};
 use crate::{
     enemy::components::EnemyComponent, enemy::spawn_enemy, misc::components::MovableComponent,
     player::PlayerComponent,
@@ -55,13 +55,15 @@ pub fn enemy_targeting_system(
     }
 }
 
-// pub fn enemy_damage_indicator(
-//     mut reader: EventReader<DamageDealtEvent>,
-//     mut query: Query<&mut Sprite, With<EnemyComponent>>,
-// ) {
-//     for evt in reader.iter() {
-//         if let Ok(sprite) = query.get(evt.entity) {
-//             sprite.color
-//         }
-//     }
-// }
+// TODO: this is currently not nice at all, depends entirely on the fact that enemies are solid blue
+pub fn enemy_damage_indicator(
+    mut reader: EventReader<DamageDealtEvent>,
+    mut query: Query<(&mut Sprite, &Health), With<EnemyComponent>>,
+) {
+    for evt in reader.iter() {
+        if let Ok((mut sprite, health)) = query.get_mut(evt.entity) {
+            sprite.color.set_b(health.value / health.max_health);
+            sprite.color.set_r(1.0 - health.value / health.max_health);
+        }
+    }
+}

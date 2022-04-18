@@ -10,17 +10,23 @@ use crate::misc::{
 use bevy::math::Vec3Swizzles;
 
 pub fn collide_bullet(
-    mut ev_hit: EventWriter<DamageDealtEvent>,
+    mut ev_damage: EventWriter<DamageDealtEvent>,
     mut enemy_query: Query<
         (Entity, &mut HitboxComponent, &mut Transform),
         (With<EnemyComponent>, Without<BulletComponent>),
     >,
     bullet_query: Query<
-        (&mut BulletComponent, &mut HitboxComponent, &mut Transform),
+        (
+            Entity,
+            &Health,
+            &mut BulletComponent,
+            &mut HitboxComponent,
+            &mut Transform,
+        ),
         (With<BulletComponent>, Without<EnemyComponent>),
     >,
 ) {
-    for (bullet, bullet_hitbox, bullet_ray) in bullet_query.iter() {
+    for (bullet_et, bullet_health, bullet, bullet_hitbox, bullet_ray) in bullet_query.iter() {
         for (entity, enemy_hitbox, enemy_ray) in enemy_query.iter_mut() {
             let etrans = enemy_ray.translation;
             let esize = enemy_hitbox.scale;
@@ -30,10 +36,15 @@ pub fn collide_bullet(
             // TODO: optimise: check distance beforehand
 
             if collide(etrans, esize, btrans, bsize).is_some() {
-                ev_hit.send(DamageDealtEvent {
+                ev_damage.send(DamageDealtEvent {
                     entity,
                     silent: false,
                     damage: bullet.damage,
+                });
+                ev_damage.send(DamageDealtEvent {
+                    entity: bullet_et,
+                    silent: true,
+                    damage: bullet_health.value,
                 });
             }
         }
@@ -42,7 +53,7 @@ pub fn collide_bullet(
 
 // TODO: make custom component for things that can die from wall contact
 pub fn collide_wall(
-    mut ev_death: EventWriter<DamageDealtEvent>,
+    mut ev_damage: EventWriter<DamageDealtEvent>,
     screen: Res<ScreenLoc>,
     mut bullet_query: Query<(&Health, &Transform, Entity), With<BulletComponent>>,
 ) {
@@ -53,7 +64,7 @@ pub fn collide_wall(
             || y > screen.sides.top
             || x > screen.sides.right
         {
-            ev_death.send(DamageDealtEvent {
+            ev_damage.send(DamageDealtEvent {
                 entity,
                 silent: true,
                 damage: health.value,

@@ -1,15 +1,19 @@
 use bevy::prelude::*;
 
-use crate::misc::components::{Health, MovableComponent};
+use crate::{
+    gun::components::Gun,
+    misc::components::{Health, MovableComponent},
+};
 
 use super::PlayerComponent;
 
 pub fn spawn_player(mut commands: Commands) {
     commands
         .spawn()
-        .insert(PlayerComponent {
-            base_damage: 10.0,
-            ..default()
+        .insert(PlayerComponent)
+        .insert(Gun {
+            damage: 10.0,
+            fire_timer: Timer::from_seconds(0.1, false),
         })
         .insert(Health {
             value: 1000.0,
